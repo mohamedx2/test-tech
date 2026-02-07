@@ -1,0 +1,162 @@
+{
+    "name": "Portfolio Contact Form",
+    "nodes": [
+        {
+            "parameters": {
+                "httpMethod": "POST",
+                "path": "portfolio-contact",
+                "options": {}
+            },
+            "name": "Webhook",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 1,
+            "position": [
+                250,
+                300
+            ],
+            "webhookId": "portfolio-contact"
+        },
+        {
+            "parameters": {
+                "values": {
+                    "string": [
+                        {
+                            "name": "name",
+                            "value": "={{$json.body.name}}"
+                        },
+                        {
+                            "name": "email",
+                            "value": "={{$json.body.email}}"
+                        },
+                        {
+                            "name": "subject",
+                            "value": "={{$json.body.subject}}"
+                        },
+                        {
+                            "name": "message",
+                            "value": "={{$json.body.message}}"
+                        },
+                        {
+                            "name": "timestamp",
+                            "value": "={{$json.body.timestamp}}"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "name": "Format Data",
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 1,
+            "position": [
+                450,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "url": "https://api.groq.com/openai/v1/chat/completions",
+                "method": "POST",
+                "authentication": "headerAuth",
+                "sendBody": true,
+                "contentType": "json",
+                "bodyParameters": {
+                    "parameters": [
+                        {
+                            "name": "model",
+                            "value": "llama3-8b-8192"
+                        },
+                        {
+                            "name": "messages",
+                            "value": "={{ [ {\"role\": \"system\", \"content\": \"Tu es un assistant personnel. Réponds brièvement à ce message de contact pour confirmer réception.\"}, {\"role\": \"user\", \"content\": $json.message} ] }}"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "name": "Groq AI Gen",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 3,
+            "position": [
+                650,
+                200
+            ],
+            "notesInFlow": true,
+            "notes": "Generates Auto-Reply Draft"
+        },
+        {
+            "parameters": {
+                "resource": "message",
+                "subject": "=New Contact: {{$json.subject}}",
+                "message": "=Name: {{$json.name}}\nEmail: {{$json.email}}\n\nMessage:\n{{$json.message}}\n\n---\nAI Suggested Reply:\n{{$node[\"Groq AI Gen\"].json[\"choices\"][0][\"message\"][\"content\"]}}",
+                "toEmail": "hamroun1969@gmail.com"
+            },
+            "name": "Send Email Alert",
+            "type": "n8n-nodes-base.gmail",
+            "typeVersion": 2,
+            "position": [
+                850,
+                200
+            ],
+            "credentials": {
+                "gmailOAuth2": {
+                    "id": "YOUR_CREDENTIAL_ID",
+                    "name": "Gmail account"
+                }
+            }
+        },
+        {
+            "parameters": {
+                "authentication": "webhook",
+                "content": "=🚨 *New Portfolio Contact*\n*From:* {{$json.name}} ({{$json.email}})\n*Subject:* {{$json.subject}}\n>>> {{$json.message}}"
+            },
+            "name": "Slack Notification",
+            "type": "n8n-nodes-base.slack",
+            "typeVersion": 1,
+            "position": [
+                850,
+                400
+            ],
+            "webhookId": "YOUR_SLACK_WEBHOOK_URL"
+        }
+    ],
+    "connections": {
+        "Webhook": {
+            "main": [
+                [
+                    {
+                        "node": "Format Data",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Format Data": {
+            "main": [
+                [
+                    {
+                        "node": "Groq AI Gen",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Groq AI Gen": {
+            "main": [
+                [
+                    {
+                        "node": "Send Email Alert",
+                        "type": "main",
+                        "index": 0
+                    },
+                    {
+                        "node": "Slack Notification",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}
