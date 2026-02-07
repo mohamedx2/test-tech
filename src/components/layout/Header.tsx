@@ -73,11 +73,7 @@ export function Header() {
                   >
                     {item.label}
                     {/* Racing line underline */}
-                    <span
-                      className="absolute bottom-1 left-1/2 w-0 h-1 bg-game-red 
-                                 group-hover:w-[80%] group-hover:left-[10%] 
-                                 transition-all duration-300"
-                    />
+                    <span className="absolute bottom-1 left-1/2 w-0 h-1 bg-game-red group-hover:w-[80%] group-hover:left-[10%] transition-all duration-300" />
                   </Link>
                 </li>
               ))}

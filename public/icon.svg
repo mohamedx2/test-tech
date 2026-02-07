@@ -1,0 +1,11 @@
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Kart Body -->
+  <path d="M4 14C4 14 5 11 12 11C19 11 20 14 20 14L21 17H3L4 14Z" fill="#e63946" />
+  <!-- Wheels -->
+  <rect x="6" y="17" width="3" height="4" rx="1" fill="#333" />
+  <rect x="15" y="17" width="3" height="4" rx="1" fill="#333" />
+  <!-- Driver Helmet -->
+  <circle cx="12" cy="8" r="3" fill="#f4a261" stroke="#333" stroke-width="1" />
+  <!-- Steering wheel line -->
+  <path d="M10 8H14" stroke="#333" stroke-width="1" stroke-linecap="round" />
+</svg>
