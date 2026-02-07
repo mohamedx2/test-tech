@@ -1,16 +1,16 @@
 /**
  * ============================================
- * 📬 SECTION : Contact
+ * 📬 SECTION: Contact
  * ============================================
  * 
- * Formulaire de contact avec :
- * - Validation Zod côté client
- * - Soumission vers API Next.js
- * - Feedback visuel (loading, success, error)
- * - Animations Framer Motion
- * - Honeypot anti-spam
+ * Contact form with:
+ * - Client-side Zod validation
+ * - Submission to Next.js API
+ * - Visual feedback (loading, success, error)
+ * - Framer Motion animations
+ * - Anti-spam Honeypot
  * 
- * L'API route transmet les données à n8n via webhook.
+ * The API route forwards data to n8n via webhook.
  */
 
 "use client";
@@ -47,40 +47,40 @@ export function ContactSection() {
     subject: "",
     message: "",
   });
-  
+
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [formState, setFormState] = useState<FormState>({
     status: "idle",
     message: null,
   });
-  
-  // Honeypot field (invisible aux humains)
+
+  // Honeypot field (invisible to humans)
   const [honeypot, setHoneypot] = useState("");
-  
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-    
+
     // Clear field error on change
     if (fieldErrors[name as keyof FieldErrors]) {
       setFieldErrors(prev => ({ ...prev, [name]: undefined }));
     }
   };
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Honeypot check - si rempli = bot
+
+    // Honeypot check - if filled = bot
     if (honeypot) {
       console.log("Bot detected");
       return;
     }
-    
-    // Validation côté client
+
+    // Client-side validation
     const validation = contactFormSchema.safeParse(formData);
-    
+
     if (!validation.success) {
       const errors: FieldErrors = {};
       validation.error.issues.forEach((issue) => {
@@ -90,11 +90,11 @@ export function ContactSection() {
       setFieldErrors(errors);
       return;
     }
-    
+
     // Submit
     setFormState({ status: "loading", message: null });
     setFieldErrors({});
-    
+
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
@@ -104,9 +104,9 @@ export function ContactSection() {
           timestamp: Date.now(),
         }),
       });
-      
+
       const result = await response.json();
-      
+
       if (response.ok) {
         setFormState({
           status: "success",
@@ -127,16 +127,16 @@ export function ContactSection() {
       });
     }
   };
-  
+
   const isLoading = formState.status === "loading";
-  
+
   return (
     <section
       id="contact"
       className="relative py-20 md:py-32 overflow-hidden"
     >
-      <div className="absolute inset-0 bg-gradient-to-t from-card/50 to-background" />
-      
+      <div className="absolute inset-0 racing-track-bg opacity-5" />
+
       <motion.div
         className="container-cyber relative z-10"
         variants={staggerContainer}
@@ -145,92 +145,102 @@ export function ContactSection() {
         viewport={{ once: true, margin: "-100px" }}
       >
         {/* Section header */}
-        <motion.div 
+        <motion.div
           className="text-center mb-16"
           variants={fadeInUp}
         >
-          <Badge variant="outline" className="mb-4 border-neon-green/50">
-            <MessageSquare className="h-3 w-3 mr-1 text-neon-green" />
-            Get In Touch
+          <Badge className="mb-4 bg-game-green text-white font-bold px-4 py-1 rounded-lg shadow-[0_0_10px_rgba(42,157,143,0.3)]">
+            PIT STOP - READY TO CONNECT
           </Badge>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            Contact
+          <h2 className="text-4xl md:text-5xl lg:text-7xl font-black mb-4 racing-glow italic">
+            CONTACT
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Un projet en tête ? Une question ? N&apos;hésitez pas à me contacter.
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto font-medium">
+            Send a signal to the pit crew. I generally respond before the next lap starts.
             <br />
-            <span className="text-neon-cyan">Je réponds généralement sous 24h.</span>
+            <span className="text-game-yellow">Response time: &lt; 24h average.</span>
           </p>
         </motion.div>
-        
+
         <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
           {/* Left: Contact info */}
           <motion.div
             className="space-y-8"
             variants={slideInLeft}
           >
-            {/* Terminal window */}
-            <div className="terminal-window">
-              <div className="terminal-header">
-                <div className="terminal-dot bg-red-500" />
-                <div className="terminal-dot bg-yellow-500" />
-                <div className="terminal-dot bg-green-500" />
-                <span className="ml-3 text-xs text-background font-medium">
-                  contact.sh
-                </span>
+            {/* Driver Profile Card */}
+            <div className="rounded-2xl border-4 border-game-blue bg-card shadow-2xl overflow-hidden">
+              <div className="bg-game-blue p-4 flex items-center justify-between">
+                <span className="font-black italic text-white tracking-widest uppercase">Driver ID Card</span>
+                <span className="text-white/50 text-xs font-mono">ID: MAH-88</span>
               </div>
-              <div className="terminal-body space-y-3">
-                <p>
-                  <span className="text-neon-cyan">$</span>{" "}
-                  <span className="text-muted-foreground">echo $EMAIL</span>
-                </p>
-                <p className="text-neon-green pl-4">{siteConfig.links.email}</p>
-                
-                <p>
-                  <span className="text-neon-cyan">$</span>{" "}
-                  <span className="text-muted-foreground">echo $LOCATION</span>
-                </p>
-                <p className="text-neon-green pl-4">Paris, France 🇫🇷</p>
-                
-                <p>
-                  <span className="text-neon-cyan">$</span>{" "}
-                  <span className="text-muted-foreground">echo $AVAILABILITY</span>
-                </p>
-                <p className="text-neon-green pl-4">Open to opportunities ✨</p>
-                
-                <p className="text-muted-foreground mt-4">
-                  <span className="text-neon-magenta">---</span>
-                  <br />
-                  Préférence: <span className="text-neon-cyan">Full-time</span> |{" "}
-                  <span className="text-neon-cyan">Remote-friendly</span>
-                </p>
+              <div className="p-8 space-y-6">
+                <div className="flex items-center gap-6">
+                  <div className="w-24 h-24 rounded-2xl bg-game-red flex items-center justify-center text-4xl shadow-inner border-4 border-background">
+                    🏎️
+                  </div>
+                  <div className="space-y-1">
+                    <h3 className="text-2xl font-black italic uppercase tracking-tighter">{siteConfig.name}</h3>
+                    <p className="text-game-blue font-bold text-sm">PRO DEVELOPER</p>
+                    <div className="flex gap-2">
+                      <div className="w-3 h-3 rounded-full bg-game-green animate-pulse" />
+                      <span className="text-[10px] font-bold text-muted-foreground uppercase">Available for work</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="h-px bg-border w-full" />
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <p className="text-[10px] font-black text-muted-foreground uppercase">Location</p>
+                    <p className="font-bold text-sm">MAHDIA, TN ��</p>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-[10px] font-black text-muted-foreground uppercase">Specialty</p>
+                    <p className="font-bold text-sm text-game-red">FULL-STACK</p>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-[10px] font-black text-muted-foreground uppercase">Rank</p>
+                    <p className="font-bold text-sm text-game-yellow">#1 TOP TIER</p>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-[10px] font-black text-muted-foreground uppercase">Mood</p>
+                    <p className="font-bold text-sm">HYPER-FOCUSED</p>
+                  </div>
+                </div>
               </div>
             </div>
-            
-            {/* Direct email link */}
-            <a
-              href={`mailto:${siteConfig.links.email}`}
-              className="flex items-center gap-3 p-4 rounded-xl border border-border
-                         bg-card/50 hover:border-neon-cyan/50 hover:bg-neon-cyan/5
-                         transition-all duration-300 group"
-            >
-              <div className="p-3 rounded-lg bg-neon-cyan/10 text-neon-cyan">
-                <Mail className="h-6 w-6" />
-              </div>
-              <div>
-                <p className="font-medium group-hover:text-neon-cyan transition-colors">
-                  Email direct
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  {siteConfig.links.email}
-                </p>
-              </div>
-            </a>
+
+            {/* Direct communication */}
+            <div className="grid grid-cols-1 gap-4">
+              <a
+                href={`mailto:${siteConfig.links.email}`}
+                className="flex items-center gap-4 p-5 rounded-2xl border-2 border-border
+                           bg-card hover:border-game-yellow hover:bg-game-yellow/5
+                           transition-all duration-300 group"
+              >
+                <div className="p-3 rounded-xl bg-game-yellow/10 text-game-yellow group-hover:bg-game-yellow group-hover:text-background transition-colors">
+                  <Mail className="h-6 w-6" />
+                </div>
+                <div>
+                  <p className="font-black text-xs uppercase tracking-widest text-muted-foreground mb-1">
+                    Direct Channel
+                  </p>
+                  <p className="font-bold text-foreground">
+                    {siteConfig.links.email}
+                  </p>
+                </div>
+              </a>
+            </div>
           </motion.div>
-          
+
           {/* Right: Contact form */}
           <motion.div variants={slideInRight}>
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-5 p-8 rounded-2xl border-4 border-game-yellow bg-card/50 backdrop-blur-md shadow-2xl relative overflow-hidden">
+              {/* Decorative corner */}
+              <div className="absolute top-0 right-0 w-16 h-16 finish-line-pattern opacity-10 rotate-45 translate-x-10 -translate-y-10" />
+
               {/* Honeypot - hidden from humans */}
               <input
                 type="text"
@@ -242,14 +252,14 @@ export function ContactSection() {
                 autoComplete="off"
                 aria-hidden="true"
               />
-              
+
               {/* Name */}
               <div>
-                <label 
-                  htmlFor="name" 
-                  className="block text-sm font-medium mb-2"
+                <label
+                  htmlFor="name"
+                  className="block text-xs font-black uppercase tracking-widest mb-2 text-muted-foreground"
                 >
-                  Nom <span className="text-neon-magenta">*</span>
+                  Player Name <span className="text-game-red">*</span>
                 </label>
                 <Input
                   id="name"
@@ -257,28 +267,27 @@ export function ContactSection() {
                   type="text"
                   value={formData.name}
                   onChange={handleChange}
-                  placeholder="John Doe"
+                  placeholder="Your name..."
                   disabled={isLoading}
                   className={cn(
-                    "bg-card/50 border-border",
-                    "focus:border-neon-cyan focus:ring-neon-cyan/20",
-                    fieldErrors.name && "border-destructive"
+                    "bg-background/80 border-2 border-border h-12 rounded-xl focus:border-game-yellow font-bold",
+                    fieldErrors.name && "border-game-red"
                   )}
                 />
                 {fieldErrors.name && (
-                  <p className="text-sm text-destructive mt-1">
+                  <p className="text-[10px] font-black text-game-red mt-1 uppercase tracking-tighter">
                     {fieldErrors.name}
                   </p>
                 )}
               </div>
-              
+
               {/* Email */}
               <div>
-                <label 
-                  htmlFor="email" 
-                  className="block text-sm font-medium mb-2"
+                <label
+                  htmlFor="email"
+                  className="block text-xs font-black uppercase tracking-widest mb-2 text-muted-foreground"
                 >
-                  Email <span className="text-neon-magenta">*</span>
+                  Return Channel <span className="text-game-red">*</span>
                 </label>
                 <Input
                   id="email"
@@ -286,28 +295,27 @@ export function ContactSection() {
                   type="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="john@example.com"
+                  placeholder="Your email address..."
                   disabled={isLoading}
                   className={cn(
-                    "bg-card/50 border-border",
-                    "focus:border-neon-cyan focus:ring-neon-cyan/20",
-                    fieldErrors.email && "border-destructive"
+                    "bg-background/80 border-2 border-border h-12 rounded-xl focus:border-game-yellow font-bold",
+                    fieldErrors.email && "border-game-red"
                   )}
                 />
                 {fieldErrors.email && (
-                  <p className="text-sm text-destructive mt-1">
+                  <p className="text-[10px] font-black text-game-red mt-1 uppercase tracking-tighter">
                     {fieldErrors.email}
                   </p>
                 )}
               </div>
-              
+
               {/* Subject */}
               <div>
-                <label 
-                  htmlFor="subject" 
-                  className="block text-sm font-medium mb-2"
+                <label
+                  htmlFor="subject"
+                  className="block text-xs font-black uppercase tracking-widest mb-2 text-muted-foreground"
                 >
-                  Sujet
+                  Race Category
                 </label>
                 <Input
                   id="subject"
@@ -315,88 +323,87 @@ export function ContactSection() {
                   type="text"
                   value={formData.subject}
                   onChange={handleChange}
-                  placeholder="Proposition de projet..."
+                  placeholder="Project inquiry, hello, etc."
                   disabled={isLoading}
-                  className="bg-card/50 border-border focus:border-neon-cyan focus:ring-neon-cyan/20"
+                  className="bg-background/80 border-2 border-border h-12 rounded-xl focus:border-game-yellow font-bold"
                 />
               </div>
-              
+
               {/* Message */}
               <div>
-                <label 
-                  htmlFor="message" 
-                  className="block text-sm font-medium mb-2"
+                <label
+                  htmlFor="message"
+                  className="block text-xs font-black uppercase tracking-widest mb-2 text-muted-foreground"
                 >
-                  Message <span className="text-neon-magenta">*</span>
+                  Data Stream <span className="text-game-red">*</span>
                 </label>
                 <Textarea
                   id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  placeholder="Bonjour, je souhaiterais discuter de..."
-                  rows={5}
+                  placeholder="What's on your mind?..."
+                  rows={4}
                   disabled={isLoading}
                   className={cn(
-                    "bg-card/50 border-border resize-none",
-                    "focus:border-neon-cyan focus:ring-neon-cyan/20",
-                    fieldErrors.message && "border-destructive"
+                    "bg-background/80 border-2 border-border rounded-xl resize-none focus:border-game-yellow font-bold",
+                    fieldErrors.message && "border-game-red"
                   )}
                 />
-                <div className="flex justify-between mt-1">
+                <div className="flex justify-between mt-2">
                   {fieldErrors.message && (
-                    <p className="text-sm text-destructive">
+                    <p className="text-[10px] font-black text-game-red uppercase tracking-tighter">
                       {fieldErrors.message}
                     </p>
                   )}
-                  <p className="text-xs text-muted-foreground ml-auto">
-                    {formData.message.length}/{contactConfig.maxMessageLength}
+                  <p className="text-[10px] font-black text-muted-foreground uppercase">
+                    {formData.message.length}/{contactConfig.maxMessageLength} Bytes
                   </p>
                 </div>
               </div>
-              
+
               {/* Submit button */}
               <Button
                 type="submit"
                 size="lg"
                 disabled={isLoading}
-                className="w-full group"
+                className="w-full bg-game-red hover:bg-red-600 text-white font-black italic uppercase tracking-tighter h-14 rounded-2xl text-xl shadow-xl shadow-red-950/20 border-b-4 border-red-900 btn-accelerate"
               >
                 {isLoading ? (
                   <>
-                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                    Envoi en cours...
+                    <Loader2 className="h-5 w-5 mr-3 animate-spin" />
+                    ACCELERATING...
                   </>
                 ) : (
                   <>
-                    Envoyer le message
-                    <Send className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                    ENGAGE TURBO
+                    <Send className="h-5 w-5 ml-3" />
                   </>
                 )}
               </Button>
-              
+
               {/* Status messages */}
               {formState.status === "success" && (
                 <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="flex items-center gap-2 p-4 rounded-lg 
-                             bg-neon-green/10 border border-neon-green/30 text-neon-green"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="flex items-center gap-3 p-4 rounded-xl 
+                             bg-game-green/20 border-2 border-game-green text-game-green font-bold shadow-lg"
                 >
-                  <CheckCircle className="h-5 w-5 flex-shrink-0" />
-                  <p className="text-sm">{formState.message}</p>
+                  <CheckCircle className="h-6 w-6 flex-shrink-0" />
+                  <p className="text-sm">MISSION ACCOMPLISHED! MESSAGE SENT.</p>
                 </motion.div>
               )}
-              
+
               {formState.status === "error" && (
                 <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="flex items-center gap-2 p-4 rounded-lg 
-                             bg-destructive/10 border border-destructive/30 text-destructive"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="flex items-center gap-3 p-4 rounded-xl 
+                             bg-game-red/20 border-2 border-game-red text-game-red font-bold shadow-lg"
                 >
-                  <AlertCircle className="h-5 w-5 flex-shrink-0" />
-                  <p className="text-sm">{formState.message}</p>
+                  <AlertCircle className="h-6 w-6 flex-shrink-0" />
+                  <p className="text-sm">CONNECTION ERROR. TRY AGAIN!</p>
                 </motion.div>
               )}
             </form>

@@ -1,13 +1,12 @@
 /**
  * ============================================
- * 👤 SECTION : About
+ * 👤 SECTION: About
  * ============================================
  * 
- * Section "À propos" avec :
- * - Photo/Avatar (optionnel)
- * - Texte de présentation
- * - Stats clés animées
- * - Style terminal/code
+ * "About Me" section with:
+ * - Presentation text
+ * - Animated key stats
+ * - Terminal/Code card style
  */
 
 "use client";
@@ -29,8 +28,8 @@ export function AboutSection() {
       className="relative py-20 md:py-32 overflow-hidden"
     >
       {/* Background subtle */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-card/30 to-background" />
-      
+      <div className="absolute inset-0 racing-track-bg opacity-5" />
+
       <motion.div
         className="container-cyber relative z-10"
         variants={staggerContainer}
@@ -39,75 +38,71 @@ export function AboutSection() {
         viewport={{ once: true, margin: "-100px" }}
       >
         {/* Section header */}
-        <motion.div 
+        <motion.div
           className="text-center mb-16"
           variants={fadeInUp}
         >
-          <Badge variant="outline" className="mb-4 border-neon-cyan/50">
-            <span className="text-neon-cyan mr-1">{">"}</span>
-            whoami
+          <Badge className="mb-4 bg-game-yellow text-background font-black px-4 py-1 rounded-lg">
+            {">"} DRIVER PROFILE
           </Badge>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+          <h2 className="text-4xl md:text-5xl lg:text-7xl font-black mb-4 racing-glow italic">
             {aboutContent.title}
           </h2>
-          <p className="text-muted-foreground text-lg">
+          <p className="text-muted-foreground text-lg font-medium">
             {aboutContent.subtitle}
           </p>
         </motion.div>
-        
+
         {/* Content grid */}
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Terminal style text */}
+          {/* Gaming style text */}
           <motion.div
             className="space-y-6"
             variants={slideInLeft}
           >
-            {/* Terminal window */}
-            <div className="terminal-window">
-              <div className="terminal-header">
-                <div className="terminal-dot bg-red-500" />
-                <div className="terminal-dot bg-yellow-500" />
-                <div className="terminal-dot bg-green-500" />
-                <span className="ml-3 text-xs text-background font-medium">
-                  about.md
-                </span>
+            {/* Driver Manual window */}
+            <div className="rounded-2xl border-4 border-game-yellow bg-card shadow-2xl overflow-hidden">
+              <div className="bg-game-yellow p-3 flex items-center gap-3">
+                <div className="w-3 h-3 rounded-full bg-background" />
+                <span className="font-black italic text-background tracking-widest uppercase text-xs">Driver Manual</span>
               </div>
-              <div className="terminal-body space-y-4">
+              <div className="p-8 space-y-6">
                 {aboutContent.paragraphs.map((paragraph, index) => (
                   <motion.p
                     key={index}
-                    className="text-muted-foreground leading-relaxed"
+                    className="text-foreground leading-relaxed font-medium"
                     variants={fadeInUp}
                   >
-                    <span className="text-neon-cyan mr-2">
-                      {index + 1}.
+                    <span className="text-game-red font-black mr-3">
+                      L{index + 1}
                     </span>
                     {paragraph}
                   </motion.p>
                 ))}
-                
-                {/* Cursor effect */}
-                <p className="text-neon-cyan">
-                  <span className="text-neon-magenta">const</span>{" "}
-                  <span className="text-foreground">passion</span>{" "}
-                  <span className="text-neon-magenta">=</span>{" "}
-                  <span className="text-neon-green">&quot;Infinite&quot;</span>;
-                  <span className="ml-1 inline-block w-2 h-4 bg-neon-cyan animate-pulse" />
-                </p>
+
+                {/* Gaming passion indicator */}
+                <div className="p-4 rounded-xl bg-muted/50 border-2 border-border flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="text-game-yellow font-black">PASSION:</span>
+                    <span className="text-xs font-black uppercase tracking-widest text-game-green">Infinite Turbo</span>
+                  </div>
+                  <div className="w-12 h-2 bg-muted rounded-full overflow-hidden">
+                    <div className="h-full w-full bg-game-green animate-pulse" />
+                  </div>
+                </div>
               </div>
             </div>
-            
-            {/* Tags / Keywords */}
-            <motion.div 
-              className="flex flex-wrap gap-2"
+
+            {/* Tags / Keywords as Power-ups */}
+            <motion.div
+              className="flex flex-wrap gap-3"
               variants={fadeInUp}
             >
-              {["Curieux", "Rigoureux", "Créatif", "Team Player", "Fast Learner"].map(
+              {["Curious", "Precise", "Creative", "Team Player", "Fast Learner"].map(
                 (tag) => (
-                  <Badge 
-                    key={tag} 
-                    variant="secondary"
-                    className="hover:bg-neon-cyan/20 hover:border-neon-cyan transition-colors cursor-default"
+                  <Badge
+                    key={tag}
+                    className="bg-game-blue/10 text-game-blue border-2 border-game-blue/20 hover:bg-game-blue hover:text-white transition-all cursor-default font-black uppercase px-4 py-1 rounded-lg italic"
                   >
                     {tag}
                   </Badge>
@@ -115,32 +110,40 @@ export function AboutSection() {
               )}
             </motion.div>
           </motion.div>
-          
+
           {/* Stats grid */}
           <motion.div
-            className="grid grid-cols-2 gap-4"
+            className="grid grid-cols-2 gap-6"
             variants={slideInRight}
           >
             {aboutContent.stats.map((stat, index) => {
               const IconComponent = statIcons[index % statIcons.length];
-              
+              const colors = ["--game-red", "--game-blue", "--game-yellow", "--game-green"];
+              const color = colors[index % colors.length];
+
               return (
                 <motion.div
                   key={stat.label}
-                  className="p-6 rounded-xl border border-border bg-card/50 backdrop-blur-sm
-                             hover:border-neon-cyan/50 hover:bg-neon-cyan/5 
-                             transition-all duration-300 group"
+                  className="p-8 rounded-2xl track-card border-b-4 relative overflow-hidden group"
+                  style={{ borderBottomColor: `var(${color})` }}
                   variants={fadeInUp}
-                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileHover={{ scale: 1.05, y: -5 }}
                 >
-                  <IconComponent 
-                    className="h-8 w-8 mb-3 text-neon-cyan 
-                               group-hover:text-neon-magenta transition-colors" 
+                  <div
+                    className="absolute -top-4 -right-4 w-16 h-16 opacity-5 rotate-12 transition-transform group-hover:rotate-45"
+                    style={{ color: `var(${color})` }}
+                  >
+                    <IconComponent className="w-full h-full" />
+                  </div>
+
+                  <IconComponent
+                    className="h-10 w-10 mb-4 transition-colors"
+                    style={{ color: `var(${color})` }}
                   />
-                  <p className="text-3xl md:text-4xl font-bold text-foreground mb-1">
+                  <p className="text-4xl md:text-5xl font-black text-foreground mb-1 italic tracking-tighter">
                     {stat.value}
                   </p>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-xs font-black uppercase tracking-widest text-muted-foreground">
                     {stat.label}
                   </p>
                 </motion.div>

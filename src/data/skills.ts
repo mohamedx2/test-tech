@@ -19,142 +19,130 @@ import { SkillCategory } from "@/types";
 
 export const skills: SkillCategory[] = [
   {
+    id: "languages",
+    title: "Core Engines",
+    icon: "Code",
+    description: "Languages & System Design",
+    skills: [
+      {
+        name: "JavaScript / TypeScript",
+        level: 95,
+        years: 4,
+        description: "Advanced patterns, framework internals",
+      },
+      {
+        name: "Go",
+        level: 85,
+        years: 2,
+        description: "Backend systems, custom storage engines",
+      },
+      {
+        name: "Nim",
+        level: 75,
+        years: 1,
+        description: "Systems programming, performance tuning",
+      },
+      {
+        name: "SQL",
+        level: 90,
+        years: 3,
+        description: "Relational DB design & optimization",
+      },
+      {
+        name: "R",
+        level: 70,
+        years: 1,
+        description: "Data analysis & visualization",
+      },
+    ],
+  },
+  {
     id: "frontend",
-    title: "Frontend",
-    icon: "Monitor", // Lucide icon name
-    description: "Interfaces modernes et performantes",
+    title: "Aerodynamics",
+    icon: "Monitor",
+    description: "Frontend & UI/UX",
     skills: [
       {
         name: "React / Next.js",
         level: 95,
         years: 4,
-        description: "SSR, App Router, Server Components",
+        description: "Full-stack apps, SSR, App Router",
       },
       {
-        name: "TypeScript",
-        level: 90,
-        years: 3,
-        description: "Types avancés, génériques, utility types",
+        name: "SolidJS",
+        level: 85,
+        years: 2,
+        description: "Fine-grained reactivity, framework design",
       },
       {
         name: "Tailwind CSS",
         level: 95,
         years: 3,
-        description: "Design systems, animations custom",
+        description: "Modern design systems, NextUI",
       },
       {
         name: "Framer Motion",
-        level: 85,
+        level: 90,
         years: 2,
-        description: "Animations complexes, gestures, layout animations",
-      },
-      {
-        name: "Three.js / WebGL",
-        level: 70,
-        years: 1,
-        description: "Scènes 3D, shaders basiques",
+        description: "Complex interactions & animations",
       },
     ],
   },
   {
     id: "backend",
-    title: "Backend",
+    title: "Under the Hood",
     icon: "Server",
-    description: "APIs robustes et scalables",
+    description: "Backend & Systems Architecture",
     skills: [
       {
-        name: "Node.js",
-        level: 90,
+        name: "Node.js / Bun",
+        level: 95,
         years: 4,
-        description: "Express, Fastify, Hono",
+        description: "Express.js, custom HTTP servers",
       },
       {
-        name: "Python",
-        level: 75,
+        name: "Database Systems",
+        level: 90,
+        years: 3,
+        description: "LSM Trees, Custom storage engines",
+      },
+      {
+        name: "NextAuth.js / Supabase",
+        level: 90,
         years: 2,
-        description: "FastAPI, scripts d'automatisation",
+        description: "Auth systems & cloud infra",
       },
       {
-        name: "PostgreSQL",
+        name: "MongoDB / MySQL",
         level: 85,
         years: 3,
-        description: "Optimisation requêtes, indexes, migrations",
-      },
-      {
-        name: "Prisma ORM",
-        level: 90,
-        years: 2,
-        description: "Schémas, relations, migrations",
-      },
-      {
-        name: "GraphQL",
-        level: 80,
-        years: 2,
-        description: "Apollo, schema-first design",
+        description: "Non-relational & relational systems",
       },
     ],
   },
   {
     id: "devops",
-    title: "DevOps & Tools",
+    title: "Pit Crew Tools",
     icon: "Settings",
-    description: "Déploiement et automatisation",
+    description: "Infrastructure & Tools",
     skills: [
       {
         name: "Docker",
-        level: 80,
+        level: 90,
         years: 2,
-        description: "Containerisation, docker-compose",
+        description: "Containerization & scalability",
       },
       {
-        name: "Git / GitHub",
+        name: "Git & GitHub",
         level: 95,
         years: 5,
-        description: "Branching strategies, CI/CD, Actions",
+        description: "CI/CD, GitHub Actions",
       },
       {
-        name: "Vercel / Railway",
+        name: "Linux / VS Code",
         level: 90,
-        years: 3,
-        description: "Déploiement, preview deployments",
-      },
-      {
-        name: "n8n / Automatisation",
-        level: 75,
-        years: 1,
-        description: "Workflows, intégrations API",
-      },
-    ],
-  },
-  {
-    id: "soft",
-    title: "Soft Skills",
-    icon: "Users",
-    description: "Au-delà du code",
-    skills: [
-      {
-        name: "Communication",
-        level: 90,
-        years: 5,
-        description: "Vulgarisation technique, documentation",
-      },
-      {
-        name: "Travail d'équipe",
-        level: 95,
-        years: 5,
-        description: "Code reviews, pair programming, mentorat",
-      },
-      {
-        name: "Résolution de problèmes",
-        level: 90,
-        years: 5,
-        description: "Debugging, architecture, trade-offs",
-      },
-      {
-        name: "Veille technologique",
-        level: 85,
-        years: 5,
-        description: "Curiosité, adaptabilité, apprentissage continu",
+        years: 4,
+        description: "Development environment & servers",
       },
     ],
   },
@@ -164,14 +152,14 @@ export const skills: SkillCategory[] = [
 export const getCategoryAverageLevel = (categoryId: string): number => {
   const category = skills.find(c => c.id === categoryId);
   if (!category) return 0;
-  
+
   const total = category.skills.reduce((acc, skill) => acc + skill.level, 0);
   return Math.round(total / category.skills.length);
 };
 
 // Toutes les skills en flat pour recherche
 export const getAllSkills = () =>
-  skills.flatMap(category => 
+  skills.flatMap(category =>
     category.skills.map(skill => ({
       ...skill,
       category: category.id,

@@ -1,12 +1,12 @@
 /**
  * ============================================
- * 🦶 COMPOSANT : Footer
+ * 🦶 COMPONENT: Footer
  * ============================================
  * 
- * Footer minimaliste avec :
- * - Liens sociaux
+ * Minimalist footer with:
+ * - Social links
  * - Copyright
- * - Easter egg au hover
+ * - Easter egg on hover
  */
 
 "use client";
@@ -18,7 +18,7 @@ import { motion } from "framer-motion";
 import { siteConfig, socialLinks } from "@/lib/constants";
 import { staggerContainer, fadeInUp } from "@/lib/animations";
 
-// Map des icônes Lucide
+// Map of Lucide icons
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Github,
   Linkedin,
@@ -28,12 +28,12 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
-  
+
   return (
-    <footer className="relative border-t border-border py-12 md:py-16">
-      {/* Grid background subtil */}
-      <div className="absolute inset-0 cyber-grid opacity-30" />
-      
+    <footer className="relative border-t-4 border-game-blue py-12 md:py-16 overflow-hidden">
+      {/* Track background subtle */}
+      <div className="absolute inset-0 racing-track-bg opacity-10" />
+
       <motion.div
         className="container-cyber relative z-10"
         variants={staggerContainer}
@@ -41,8 +41,8 @@ export function Footer() {
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
       >
-        {/* Liens sociaux */}
-        <motion.div 
+        {/* Social Links */}
+        <motion.div
           className="flex justify-center gap-4 mb-8"
           variants={fadeInUp}
         >
@@ -54,8 +54,8 @@ export function Footer() {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-lg border border-border bg-card/50
-                           hover:border-neon-cyan hover:bg-neon-cyan/10
+                className="p-3 rounded-xl border-2 border-border bg-card/50
+                           hover:border-game-blue hover:bg-game-blue/10
                            transition-all duration-300 group"
                 whileHover={{ scale: 1.1, y: -2 }}
                 whileTap={{ scale: 0.95 }}
@@ -63,63 +63,64 @@ export function Footer() {
               >
                 {IconComponent && (
                   <IconComponent className="h-5 w-5 text-muted-foreground 
-                                            group-hover:text-neon-cyan transition-colors" />
+                                            group-hover:text-game-blue transition-colors" />
                 )}
               </motion.a>
             );
           })}
-          
-          {/* Email direct */}
+
+          {/* Direct Email */}
           <motion.a
             href={`mailto:${siteConfig.links.email}`}
-            className="p-3 rounded-lg border border-border bg-card/50
-                       hover:border-neon-magenta hover:bg-neon-magenta/10
+            className="p-3 rounded-xl border-2 border-border bg-card/50
+                       hover:border-game-red hover:bg-game-red/10
                        transition-all duration-300 group"
             whileHover={{ scale: 1.1, y: -2 }}
             whileTap={{ scale: 0.95 }}
             aria-label="Email"
           >
             <Mail className="h-5 w-5 text-muted-foreground 
-                            group-hover:text-neon-magenta transition-colors" />
+                            group-hover:text-game-red transition-colors" />
           </motion.a>
         </motion.div>
-        
-        {/* Ligne de séparation stylisée */}
-        <motion.div 
+
+        {/* Styled separation line */}
+        <motion.div
           className="flex items-center justify-center gap-4 mb-8"
           variants={fadeInUp}
         >
-          <div className="h-px w-16 bg-gradient-to-r from-transparent to-neon-cyan" />
-          <div className="w-2 h-2 rounded-full bg-neon-cyan animate-pulse-glow" />
-          <div className="h-px w-16 bg-gradient-to-l from-transparent to-neon-cyan" />
+          <div className="h-px w-16 bg-gradient-to-r from-transparent to-game-yellow" />
+          <div className="w-2 h-2 rounded-full bg-game-yellow animate-pulse" />
+          <div className="h-px w-16 bg-gradient-to-l from-transparent to-game-yellow" />
         </motion.div>
-        
+
         {/* Copyright */}
-        <motion.div 
+        <motion.div
           className="text-center text-sm text-muted-foreground"
           variants={fadeInUp}
         >
-          <p className="flex items-center justify-center gap-1 flex-wrap">
+          <p className="flex items-center justify-center gap-1 flex-wrap font-bold uppercase tracking-tight">
             <span>© {currentYear}</span>
-            <span className="text-neon-cyan">{siteConfig.name}</span>
-            <span>—</span>
-            <span>Crafted with</span>
+            <span className="text-game-red racing-glow">{siteConfig.name}</span>
+            <span className="text-muted-foreground/30 mx-2">|</span>
+            <span>RANK #1</span>
+            <span className="text-muted-foreground/30 mx-2">|</span>
+            <span>CRAFTED WITH</span>
             <motion.span
               whileHover={{ scale: 1.3, rotate: 10 }}
               className="inline-block"
             >
-              <Heart className="h-4 w-4 text-neon-magenta fill-neon-magenta" />
+              <Heart className="h-4 w-4 text-game-red fill-game-red" />
             </motion.span>
-            <span>& lots of</span>
-            <span className="text-neon-cyan">{"<code />"}</span>
+            <span>& PURE TURBO</span>
           </p>
-          
+
           {/* Easter egg */}
           <motion.p
-            className="mt-2 text-xs opacity-50 hover:opacity-100 transition-opacity cursor-default"
-            whileHover={{ color: "var(--neon-cyan)" }}
+            className="mt-4 text-[10px] font-black opacity-30 hover:opacity-100 transition-opacity cursor-default tracking-widest uppercase italic"
+            whileHover={{ color: "var(--game-yellow)" }}
           >
-            {"// TODO: Sleep more, code less... Nah."}
+            {"// Finish line reached. New lap loading..."}
           </motion.p>
         </motion.div>
       </motion.div>

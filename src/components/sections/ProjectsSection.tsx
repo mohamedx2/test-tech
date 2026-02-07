@@ -25,18 +25,18 @@ import { cn } from "@/lib/utils";
 
 export function ProjectsSection() {
   const [activeFilter, setActiveFilter] = useState("all");
-  
+
   const filteredProjects = activeFilter === "all"
     ? projects
     : projects.filter(p => p.category === activeFilter);
-  
+
   return (
     <section
       id="projects"
       className="relative py-20 md:py-32 overflow-hidden"
     >
       <div className="absolute inset-0 bg-gradient-to-b from-background via-card/20 to-background" />
-      
+
       <motion.div
         className="container-cyber relative z-10"
         variants={staggerContainer}
@@ -45,48 +45,47 @@ export function ProjectsSection() {
         viewport={{ once: true, margin: "-100px" }}
       >
         {/* Section header */}
-        <motion.div 
+        <motion.div
           className="text-center mb-12"
           variants={fadeInUp}
         >
-          <Badge variant="outline" className="mb-4 border-neon-cyan/50">
-            <Folder className="h-3 w-3 mr-1 text-neon-cyan" />
-            Portfolio
+          <Badge className="mb-4 bg-game-yellow text-background font-bold px-4 py-1 rounded-lg">
+            RANK #1 - SELECT YOUR TRACK
           </Badge>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            Projets
+          <h2 className="text-4xl md:text-5xl lg:text-7xl font-black mb-4 racing-glow italic">
+            GRAND PRIX
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Une sélection de projets qui illustrent mon approche et mes compétences.
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto font-medium">
+            Browse through my latest missions and successful races.
           </p>
         </motion.div>
-        
+
         {/* Filters */}
-        <motion.div 
-          className="flex flex-wrap justify-center gap-2 mb-12"
+        <motion.div
+          className="flex flex-wrap justify-center gap-3 mb-12"
           variants={fadeInUp}
         >
           {projectCategories.map((category) => (
             <Button
               key={category.id}
               variant={activeFilter === category.id ? "default" : "outline"}
-              size="sm"
+              size="lg"
               onClick={() => setActiveFilter(category.id)}
               className={cn(
-                "transition-all duration-300",
-                activeFilter === category.id 
-                  ? "bg-neon-cyan text-background hover:bg-neon-cyan/90" 
-                  : "border-border hover:border-neon-cyan/50"
+                "transition-all duration-300 rounded-xl font-bold uppercase tracking-wider h-12 px-6",
+                activeFilter === category.id
+                  ? "bg-game-red text-white shadow-[0_0_15px_rgba(230,57,70,0.4)] border-b-4 border-red-800"
+                  : "border-2 border-border hover:border-game-red hover:text-game-red"
               )}
             >
               {category.label}
             </Button>
           ))}
         </motion.div>
-        
+
         {/* Projects grid */}
-        <motion.div 
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+        <motion.div
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
           layout
         >
           <AnimatePresence mode="popLayout">
@@ -98,34 +97,35 @@ export function ProjectsSection() {
                 initial="hidden"
                 animate="visible"
                 exit="hidden"
-                className="group relative rounded-xl border border-border bg-card/50 
-                           backdrop-blur-sm overflow-hidden
-                           hover:border-neon-cyan/50 transition-all duration-300"
+                className="group relative rounded-2xl track-card overflow-hidden"
               >
-                {/* Image placeholder */}
+                {/* Item Box Image Container */}
                 <div className="relative aspect-video bg-muted overflow-hidden">
-                  {/* Placeholder gradient - replace with actual image */}
-                  <div 
-                    className="absolute inset-0 bg-gradient-to-br from-neon-cyan/20 to-neon-magenta/20
-                               group-hover:scale-105 transition-transform duration-500"
-                  />
-                  
+                  {/* Item Box Question Mark Background */}
+                  <div
+                    className="absolute inset-0 bg-gradient-to-br from-game-yellow/20 to-game-red/20
+                                group-hover:scale-105 transition-transform duration-500
+                                flex items-center justify-center"
+                  >
+                    <span className="text-6xl font-black text-game-yellow/20 select-none">?</span>
+                  </div>
+
                   {/* Overlay on hover */}
-                  <div className="absolute inset-0 bg-background/80 opacity-0 
+                  <div className="absolute inset-0 bg-background/90 opacity-0 
                                   group-hover:opacity-100 transition-opacity duration-300
-                                  flex items-center justify-center gap-4">
+                                  flex items-center justify-center gap-6">
                     {project.links.github && (
                       <motion.a
                         href={project.links.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-3 rounded-full bg-card border border-border
-                                   hover:border-neon-cyan hover:text-neon-cyan transition-all"
-                        whileHover={{ scale: 1.1 }}
+                        className="p-4 rounded-2xl bg-game-red text-white
+                                   hover:shadow-[0_0_15px_rgba(230,57,70,0.5)] transition-all"
+                        whileHover={{ scale: 1.1, rotate: -5 }}
                         whileTap={{ scale: 0.95 }}
                         aria-label="GitHub"
                       >
-                        <Github className="h-5 w-5" />
+                        <Github className="h-6 w-6" />
                       </motion.a>
                     )}
                     {project.links.live && (
@@ -133,50 +133,57 @@ export function ProjectsSection() {
                         href={project.links.live}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-3 rounded-full bg-card border border-border
-                                   hover:border-neon-magenta hover:text-neon-magenta transition-all"
-                        whileHover={{ scale: 1.1 }}
+                        className="p-4 rounded-2xl bg-game-blue text-white
+                                   hover:shadow-[0_0_15px_rgba(69,123,157,0.5)] transition-all"
+                        whileHover={{ scale: 1.1, rotate: 5 }}
                         whileTap={{ scale: 0.95 }}
                         aria-label="Live demo"
                       >
-                        <ExternalLink className="h-5 w-5" />
+                        <ExternalLink className="h-6 w-6" />
                       </motion.a>
                     )}
                   </div>
-                  
-                  {/* Featured badge */}
+
+                  {/* Item Box Badge */}
+                  <div className="absolute top-4 left-4">
+                    <div className="bg-game-yellow text-background font-black px-3 py-1 rounded-lg text-xs shadow-lg flex items-center gap-1">
+                      <span className="animate-coin">🪙</span>
+                      ITEM #{project.id.toString().padStart(2, '0')}
+                    </div>
+                  </div>
+
                   {project.featured && (
-                    <div className="absolute top-3 left-3">
-                      <Badge className="bg-neon-magenta text-white border-none">
-                        Featured
+                    <div className="absolute top-4 right-4">
+                      <Badge className="bg-game-red text-white border-none font-black shadow-lg">
+                        STAR ★
                       </Badge>
                     </div>
                   )}
                 </div>
-                
+
                 {/* Content */}
-                <div className="p-5">
-                  <h3 className="text-lg font-bold mb-2 group-hover:text-neon-cyan transition-colors">
+                <div className="p-6">
+                  <h3 className="text-xl font-black mb-2 group-hover:text-game-yellow transition-colors italic">
                     {project.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                  <p className="text-sm text-muted-foreground mb-6 line-clamp-2 font-medium">
                     {project.description}
                   </p>
-                  
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-1">
-                    {project.tags.slice(0, 4).map((tag) => (
-                      <Badge 
-                        key={tag} 
-                        variant="secondary" 
-                        className="text-xs"
+
+                  {/* Tags as Power-ups */}
+                  <div className="flex flex-wrap gap-2">
+                    {project.tags.slice(0, 3).map((tag) => (
+                      <Badge
+                        key={tag}
+                        variant="secondary"
+                        className="text-[10px] font-bold uppercase bg-game-blue/10 text-game-blue border-game-blue/20 rounded-md"
                       >
                         {tag}
                       </Badge>
                     ))}
-                    {project.tags.length > 4 && (
-                      <Badge variant="secondary" className="text-xs">
-                        +{project.tags.length - 4}
+                    {project.tags.length > 3 && (
+                      <Badge variant="secondary" className="text-[10px] font-bold bg-muted text-muted-foreground rounded-md">
+                        +{project.tags.length - 3}
                       </Badge>
                     )}
                   </div>
@@ -185,10 +192,10 @@ export function ProjectsSection() {
             ))}
           </AnimatePresence>
         </motion.div>
-        
+
         {/* Empty state */}
         {filteredProjects.length === 0 && (
-          <motion.p 
+          <motion.p
             className="text-center text-muted-foreground py-12"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

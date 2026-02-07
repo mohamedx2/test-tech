@@ -65,7 +65,7 @@ export interface Experience {
   company: string;
   companyUrl: string | null;
   location: string;
-  type: "CDI" | "CDD" | "Alternance" | "Stage" | "Freelance";
+  type: "CDI" | "CDD" | "Alternance" | "Stage" | "Freelance" | "Student" | "Graduate";
   startDate: string; // Format: YYYY-MM
   endDate: string | null; // null = poste actuel
   description: string;

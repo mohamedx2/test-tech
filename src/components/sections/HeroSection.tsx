@@ -40,21 +40,26 @@ export function HeroSection() {
     pauseAfterTyping: 2500,
     loop: true,
   });
-  
+
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background"
     >
-      {/* Background grid */}
-      <div className="absolute inset-0 cyber-grid" />
-      
+      {/* Racing Track Pattern */}
+      <div className="absolute inset-0 racing-track-bg opacity-30" />
+
+      {/* Animated Clouds / Parallax feel (CSS only) */}
+      <div className="absolute inset-0 pointer-events-none opacity-20">
+        <div className="absolute top-[10%] left-[5%] w-32 h-16 bg-white rounded-full blur-2xl animate-float" />
+        <div className="absolute top-[20%] right-[10%] w-48 h-24 bg-white rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }} />
+      </div>
+
       {/* Gradient overlay */}
-      <div 
-        className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background"
-        style={{ opacity: 0.8 }}
+      <div
+        className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background"
       />
-      
+
       {/* Content */}
       <motion.div
         className="container-cyber relative z-10 text-center py-20"
@@ -62,109 +67,102 @@ export function HeroSection() {
         initial="hidden"
         animate="visible"
       >
-        {/* Terminal greeting */}
+        {/* Gaming greeting */}
         <motion.div
           className="inline-flex items-center gap-2 px-4 py-2 mb-6 
-                     border border-border rounded-full bg-card/50 backdrop-blur-sm"
+                     border-2 border-game-yellow rounded-xl bg-card/80 backdrop-blur-md shadow-[0_0_15px_rgba(244,162,97,0.3)]"
           variants={fadeInUp}
         >
-          <Terminal className="h-4 w-4 text-neon-cyan" />
-          <span className="text-sm font-mono text-muted-foreground">
-            {heroContent.greeting}
+          <span className="animate-coin">🪙</span>
+          <span className="text-sm font-bold uppercase tracking-wider text-game-yellow">
+            {heroContent.greeting || "Ready to Race?"}
           </span>
-          <span className="w-2 h-4 bg-neon-cyan animate-pulse" />
         </motion.div>
-        
+
         {/* Nom principal */}
         <motion.h1
-          className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4"
+          className="text-5xl md:text-7xl lg:text-8xl font-black mb-4 tracking-tighter"
           variants={fadeInUp}
         >
-          <span className="text-foreground">Hello, I&apos;m </span>
-          <span 
-            className="text-neon-cyan neon-glow"
-            style={{ 
-              textShadow: "0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan)" 
-            }}
+          <span className="text-foreground">I&apos;m </span>
+          <span
+            className="text-game-red racing-glow"
           >
             {siteConfig.name}
           </span>
         </motion.h1>
-        
+
         {/* Tagline avec effet typing */}
         <motion.div
           className="h-12 md:h-14 flex items-center justify-center mb-8"
           variants={fadeInUp}
         >
-          <p className="text-xl md:text-2xl lg:text-3xl font-mono text-muted-foreground">
-            <span className="text-neon-magenta mr-2">{">"}</span>
-            <span>{displayText}</span>
-            <span className="ml-1 inline-block w-3 h-6 bg-neon-cyan animate-pulse" />
+          <p className="text-xl md:text-2xl lg:text-3xl font-bold text-muted-foreground uppercase">
+            <span className="text-game-yellow mr-2">{"RANK #1"}</span>
+            <span className="text-foreground">{displayText}</span>
           </p>
         </motion.div>
-        
+
         {/* Description */}
         <motion.p
-          className="max-w-2xl mx-auto text-lg text-muted-foreground mb-10 leading-relaxed"
+          className="max-w-2xl mx-auto text-lg text-muted-foreground mb-10 leading-relaxed font-medium"
           variants={fadeInUp}
         >
-          Je construis des applications web <span className="text-foreground">modernes</span>,{" "}
-          <span className="text-foreground">performantes</span> et{" "}
-          <span className="text-neon-cyan">mémorables</span>.
+          Expert en développement <span className="text-game-red">Haute Performance</span>.{" "}
+          Je conçois des expériences web <span className="text-game-yellow">légendaires</span> et{" "}
+          <span className="text-game-blue">immersives</span>.
           <br />
-          Du concept au déploiement, je transforme vos idées en réalité.
+          Prêt à passer à la vitesse supérieure ?
         </motion.p>
-        
+
         {/* CTAs */}
         <motion.div
           className="flex flex-col sm:flex-row gap-4 justify-center"
           variants={fadeInUp}
         >
-          {/* CTA Primaire */}
+          {/* CTA Primaire - Red Racing */}
           <motion.div
             variants={scaleOnHover}
             initial="initial"
             whileHover="hover"
             whileTap="tap"
           >
-            <Button asChild size="lg" className="group relative overflow-hidden">
+            <Button asChild size="lg" className="group relative overflow-hidden bg-game-red border-b-4 border-red-800 hover:bg-red-600 btn-accelerate rounded-xl h-14 px-8 text-lg font-bold">
               <Link href="#projects">
                 <span className="relative z-10 flex items-center gap-2">
-                  Voir mes projets
+                  START RACE
                   <motion.span
                     animate={{ x: [0, 5, 0] }}
                     transition={{ repeat: Infinity, duration: 1.5 }}
                   >
-                    →
+                    🚩
                   </motion.span>
                 </span>
-                {/* Hover effect */}
-                <span 
-                  className="absolute inset-0 bg-neon-magenta opacity-0 
-                             group-hover:opacity-100 transition-opacity duration-300"
-                />
               </Link>
             </Button>
           </motion.div>
-          
-          {/* CTA Secondaire */}
+
+          {/* CTA Secondaire - Blue Track */}
           <motion.div
             variants={scaleOnHover}
             initial="initial"
             whileHover="hover"
             whileTap="tap"
           >
-            <Button asChild size="lg" variant="outline" className="border-neon-cyan/50">
+            <Button asChild size="lg" variant="outline" className="border-2 border-game-blue text-game-blue hover:bg-game-blue hover:text-white rounded-xl h-14 px-8 text-lg font-bold">
               <Link href="#contact">
-                Me contacter
+                PIT STOP
               </Link>
             </Button>
           </motion.div>
         </motion.div>
-        
+
+        {/* Finish Line Indicator */}
+        <div className="absolute bottom-0 left-0 w-full h-4 finish-line-pattern opacity-50" />
+
         {/* Scroll indicator */}
         <motion.div
-          className="absolute bottom-10 left-1/2 -translate-x-1/2"
+          className="absolute bottom-16 left-1/2 -translate-x-1/2"
           variants={fadeIn}
           animate={{
             y: [0, 10, 0],
@@ -178,10 +176,10 @@ export function HeroSection() {
           <Link
             href="#about"
             className="flex flex-col items-center gap-2 text-muted-foreground 
-                       hover:text-neon-cyan transition-colors"
+                       hover:text-game-yellow transition-colors"
             aria-label="Scroll down"
           >
-            <span className="text-xs font-mono uppercase tracking-widest">Scroll</span>
+            <span className="text-xs font-bold uppercase tracking-widest">Accelerate</span>
             <ArrowDown className="h-5 w-5" />
           </Link>
         </motion.div>

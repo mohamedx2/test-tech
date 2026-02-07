@@ -31,6 +31,7 @@ const geistMono = Geist_Mono({
 
 // Metadata SEO
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: {
     default: `${siteConfig.name} | Full-Stack Developer`,
     template: `%s | ${siteConfig.name}`,

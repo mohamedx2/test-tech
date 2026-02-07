@@ -25,96 +25,164 @@ import { Project } from "@/types";
 
 export const projects: Project[] = [
   {
-    id: "project-1",
-    title: "CyberDash",
-    description: "Dashboard analytics temps réel avec visualisations 3D et WebGL",
+    id: "baraqex",
+    title: "Baraqex",
+    description: "Modern JavaScript & TypeScript full-stack framework focused on performance (PFE).",
     longDescription: `
-      Application de monitoring en temps réel développée pour une startup fintech.
-      Gère plus de 10,000 requêtes/minute avec des visualisations interactives.
-      
-      Défis techniques relevés :
-      - Optimisation des re-renders avec React.memo et useMemo
-      - WebSocket pour les mises à jour en temps réel
-      - Canvas 2D/WebGL pour les graphiques haute performance
+      Designed and built a custom framework from scratch to understand web internals.
+      - JSX rendering, Server-Side Rendering (SSR), and hydration.
+      - File-based routing system.
+      - Integrated WebAssembly (Go) modules for performance-critical paths.
+      - Custom compiler architecture and runtime.
+      Live: baraqex.tech | NPM: baraqex
     `,
-    image: "/projects/cyberdash.png",
-    tags: ["React", "TypeScript", "D3.js", "WebGL", "Node.js"],
+    image: "/projects/baraqex.png",
+    tags: ["TypeScript", "WASM", "Go", "SSR", "Compiler"],
     links: {
-      github: "https://github.com/username/cyberdash",
-      live: "https://cyberdash-demo.vercel.app",
+      github: "https://github.com/mohamedx2",
+      live: "https://baraqex.tech",
+      npm: "https://www.npmjs.com/package/baraqex",
     },
     featured: true,
     category: "fullstack",
   },
   {
-    id: "project-2",
-    title: "NeonChat",
-    description: "Application de messagerie E2E encrypted avec interface gaming",
+    id: "coffre-fort",
+    title: "Coffre-Fort Documentaire",
+    description: "Enterprise-grade document management system with local AI processing.",
     longDescription: `
-      Messagerie sécurisée inspirée de l'esthétique cyberpunk.
-      Chiffrement de bout en bout avec libsodium.
-      
-      Points forts :
-      - Architecture microservices
-      - WebRTC pour les appels vidéo
-      - PWA avec notifications push
+      Secure AI platform for document handling.
+      - PDF text extraction and document indexing.
+      - AI-powered summarization using Ollama (Mistral 7B).
+      - Role-based access control (RBAC) and audit logging.
+      - Fully Dockerized architecture with optional GPU acceleration.
     `,
-    image: "/projects/neonchat.png",
-    tags: ["Next.js", "Socket.io", "PostgreSQL", "Redis", "WebRTC"],
+    image: "/projects/coffre-fort.png",
+    tags: ["AI", "Ollama", "Docker", "Node.js", "Security"],
     links: {
-      github: "https://github.com/username/neonchat",
-      live: "https://neonchat.app",
+      github: "https://github.com/mohamedx2",
     },
     featured: true,
     category: "fullstack",
   },
   {
-    id: "project-3",
-    title: "PixelForge",
-    description: "Éditeur de sprites en ligne avec export multi-format",
+    id: "whiteboard-saas",
+    title: "Collaborative Whiteboard",
+    description: "60 FPS real-time collaborative tool with undo/redo and Redis caching.",
     longDescription: `
-      Outil de création de pixel art collaboratif en temps réel.
-      Inspiré par Aseprite mais accessible depuis le navigateur.
-      
-      Fonctionnalités :
-      - Canvas optimisé avec OffscreenCanvas
-      - Calques et animations
-      - Export PNG, GIF, spritesheet
+      Real-time drawing platform inspired by Excalidraw.
+      - WebSocket synchronization using Socket.io.
+      - Event-sourcing architecture for full history (undo/redo).
+      - PostgreSQL persistence and snapshots.
+      - High-performance 60 FPS canvas engine.
     `,
-    image: "/projects/pixelforge.png",
-    tags: ["TypeScript", "Canvas API", "Zustand", "Vite"],
+    image: "/projects/whiteboard.png",
+    tags: ["Socket.io", "Redis", "PostgreSQL", "Event Sourcing"],
     links: {
-      github: "https://github.com/username/pixelforge",
+      github: "https://github.com/mohamedx2",
+    },
+    featured: true,
+    category: "fullstack",
+  },
+  {
+    id: "n8n-generator",
+    title: "N8N Project Generator",
+    description: "AI tool converting natural language into ready-to-run n8n workflows.",
+    longDescription: `
+      Developer productivity tool for automation.
+      - Generates n8n workflow JSON from text.
+      - Auto-creates Docker Compose and environment setups.
+      - Power by local LLM inference via Ollama (LLaMA 3).
+    `,
+    image: "/projects/n8n-gen.png",
+    tags: ["AI", "n8n", "Automation", "Ollama", "Docker"],
+    links: {
+      github: "https://github.com/mohamedx2",
+    },
+    featured: true,
+    category: "backend",
+  },
+  {
+    id: "ecommerce",
+    title: "Modern E-Commerce",
+    description: "Production-ready solution with inventory management and analytics.",
+    longDescription: `
+      Complete e-commerce platform with a focus on performance.
+      - Advanced product & inventory management.
+      - Stripe/Payment integration.
+      - Admin panel with analytics dashboards.
+      - Secure authentication and role management.
+    `,
+    image: "/projects/ecommerce.png",
+    tags: ["Next.js", "Stripe", "Auth", "Dashboard"],
+    links: {
+      github: "https://github.com/mohamedx2",
+      live: "https://ecommerce-ruddy-psi.vercel.app",
+    },
+    featured: true,
+    category: "fullstack",
+  },
+  {
+    id: "dbgo",
+    title: "DBGO",
+    description: "Lightweight database engine implemented in Go with ACID support.",
+    longDescription: `
+      Custom storage engine focusing on performance and core database concepts.
+      - ACID transaction support.
+      - REST API interface.
+      - High-performance indexing.
+      - Native Go implementation.
+    `,
+    image: "/projects/dbgo.png",
+    tags: ["Go", "Database", "ACID", "Backend"],
+    links: {
+      github: "https://github.com/mohamedx2",
+      live: "https://dbgo.vercel.app",
+    },
+    featured: true,
+    category: "backend",
+  },
+  {
+    id: "hamroun-express",
+    title: "hamroun-express",
+    description: "Minimal backend framework inspired by Express.js for learning internals.",
+    longDescription: `
+      Custom routing engine and middleware system.
+      - Built to understand the internal architecture of Node.js servers.
+      - Extensible plugin system.
+      - Minimal footprint and zero dependencies.
+    `,
+    image: "/projects/express.png",
+    tags: ["Node.js", "Framework", "HTTP", "Internals"],
+    links: {
+      github: "https://github.com/mohamedx2/hamroun-express",
     },
     featured: false,
-    category: "frontend",
+    category: "backend",
   },
   {
-    id: "project-4",
-    title: "APIForge",
-    description: "Générateur d'API REST/GraphQL à partir de schémas JSON",
+    id: "online-compiler",
+    title: "Online Compiler (French Syntax)",
+    description: "Educational compiler translating French pseudocode into C.",
     longDescription: `
-      CLI et interface web pour scaffolder des APIs complètes.
-      Génère routes, validations, documentation automatiquement.
-      
-      Stack générée :
-      - Express/Fastify ou Hono
-      - Prisma ORM
-      - OpenAPI/Swagger docs
+      Language processing tool for learning logic.
+      - Custom compiler logic and tokenization.
+      - Secure code execution via GCC in isolated environment.
+      - Web-based interactive interface.
     `,
-    image: "/projects/apiforge.png",
-    tags: ["Node.js", "CLI", "Prisma", "OpenAPI"],
+    image: "/projects/compiler-fr.png",
+    tags: ["Compiler", "C", "Logic", "Flask"],
     links: {
-      github: "https://github.com/username/apiforge",
-      npm: "https://npmjs.com/package/apiforge",
+      github: "https://github.com/mohamedx2",
+      live: "https://online-compiler-flask.onrender.com",
     },
-    featured: true,
+    featured: false,
     category: "backend",
   },
 ];
 
 // Helper pour récupérer les projets featured
-export const getFeaturedProjects = () => 
+export const getFeaturedProjects = () =>
   projects.filter(p => p.featured);
 
 // Helper pour filtrer par catégorie
