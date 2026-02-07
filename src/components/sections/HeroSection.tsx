@@ -69,8 +69,7 @@ export function HeroSection() {
       >
         {/* Gaming greeting */}
         <motion.div
-          className="inline-flex items-center gap-2 px-4 py-2 mb-6 
-                     border-2 border-game-yellow rounded-xl bg-card/80 backdrop-blur-md shadow-[0_0_15px_rgba(244,162,97,0.3)]"
+          className="inline-flex items-center gap-2 px-4 py-2 mb-6 border-2 border-game-yellow rounded-xl bg-card/80 backdrop-blur-md shadow-[0_0_15px_rgba(244,162,97,0.3)]"
           variants={fadeInUp}
         >
           <span className="animate-coin">🪙</span>
@@ -175,8 +174,7 @@ export function HeroSection() {
         >
           <Link
             href="#about"
-            className="flex flex-col items-center gap-2 text-muted-foreground 
-                       hover:text-game-yellow transition-colors"
+            className="flex flex-col items-center gap-2 text-muted-foreground hover:text-game-yellow transition-colors"
             aria-label="Scroll down"
           >
             <span className="text-xs font-bold uppercase tracking-widest">Accelerate</span>

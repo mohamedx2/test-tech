@@ -216,9 +216,7 @@ export function ContactSection() {
             <div className="grid grid-cols-1 gap-4">
               <a
                 href={`mailto:${siteConfig.links.email}`}
-                className="flex items-center gap-4 p-5 rounded-2xl border-2 border-border
-                           bg-card hover:border-game-yellow hover:bg-game-yellow/5
-                           transition-all duration-300 group"
+                className="flex items-center gap-4 p-5 rounded-2xl border-2 border-border bg-card hover:border-game-yellow hover:bg-game-yellow/5 transition-all duration-300 group"
               >
                 <div className="p-3 rounded-xl bg-game-yellow/10 text-game-yellow group-hover:bg-game-yellow group-hover:text-background transition-colors">
                   <Mail className="h-6 w-6" />
@@ -387,8 +385,7 @@ export function ContactSection() {
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="flex items-center gap-3 p-4 rounded-xl 
-                             bg-game-green/20 border-2 border-game-green text-game-green font-bold shadow-lg"
+                  className="flex items-center gap-3 p-4 rounded-xl bg-game-green/20 border-2 border-game-green text-game-green font-bold shadow-lg"
                 >
                   <CheckCircle className="h-6 w-6 flex-shrink-0" />
                   <p className="text-sm">MISSION ACCOMPLISHED! MESSAGE SENT.</p>
@@ -399,8 +396,7 @@ export function ContactSection() {
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="flex items-center gap-3 p-4 rounded-xl 
-                             bg-game-red/20 border-2 border-game-red text-game-red font-bold shadow-lg"
+                  className="flex items-center gap-3 p-4 rounded-xl bg-game-red/20 border-2 border-game-red text-game-red font-bold shadow-lg"
                 >
                   <AlertCircle className="h-6 w-6 flex-shrink-0" />
                   <p className="text-sm">CONNECTION ERROR. TRY AGAIN!</p>

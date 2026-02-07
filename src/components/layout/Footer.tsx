@@ -54,16 +54,13 @@ export function Footer() {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-3 rounded-xl border-2 border-border bg-card/50
-                           hover:border-game-blue hover:bg-game-blue/10
-                           transition-all duration-300 group"
+                className="p-3 rounded-xl border-2 border-border bg-card/50 hover:border-game-blue hover:bg-game-blue/10 transition-all duration-300 group"
                 whileHover={{ scale: 1.1, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 aria-label={link.platform}
               >
                 {IconComponent && (
-                  <IconComponent className="h-5 w-5 text-muted-foreground 
-                                            group-hover:text-game-blue transition-colors" />
+                  <IconComponent className="h-5 w-5 text-muted-foreground group-hover:text-game-blue transition-colors" />
                 )}
               </motion.a>
             );
@@ -72,15 +69,12 @@ export function Footer() {
           {/* Direct Email */}
           <motion.a
             href={`mailto:${siteConfig.links.email}`}
-            className="p-3 rounded-xl border-2 border-border bg-card/50
-                       hover:border-game-red hover:bg-game-red/10
-                       transition-all duration-300 group"
+            className="p-3 rounded-xl border-2 border-border bg-card/50 hover:border-game-red hover:bg-game-red/10 transition-all duration-300 group"
             whileHover={{ scale: 1.1, y: -2 }}
             whileTap={{ scale: 0.95 }}
             aria-label="Email"
           >
-            <Mail className="h-5 w-5 text-muted-foreground 
-                            group-hover:text-game-red transition-colors" />
+            <Mail className="h-5 w-5 text-muted-foreground group-hover:text-game-red transition-colors" />
           </motion.a>
         </motion.div>
 

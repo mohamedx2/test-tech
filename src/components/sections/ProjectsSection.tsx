@@ -102,25 +102,18 @@ export function ProjectsSection() {
                 {/* Item Box Image Container */}
                 <div className="relative aspect-video bg-muted overflow-hidden">
                   {/* Item Box Question Mark Background */}
-                  <div
-                    className="absolute inset-0 bg-gradient-to-br from-game-yellow/20 to-game-red/20
-                                group-hover:scale-105 transition-transform duration-500
-                                flex items-center justify-center"
-                  >
+                  <div className="absolute inset-0 bg-gradient-to-br from-game-yellow/20 to-game-red/20 group-hover:scale-105 transition-transform duration-500 flex items-center justify-center">
                     <span className="text-6xl font-black text-game-yellow/20 select-none">?</span>
                   </div>
 
                   {/* Overlay on hover */}
-                  <div className="absolute inset-0 bg-background/90 opacity-0 
-                                  group-hover:opacity-100 transition-opacity duration-300
-                                  flex items-center justify-center gap-6">
+                  <div className="absolute inset-0 bg-background/90 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-6">
                     {project.links.github && (
                       <motion.a
                         href={project.links.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-4 rounded-2xl bg-game-red text-white
-                                   hover:shadow-[0_0_15px_rgba(230,57,70,0.5)] transition-all"
+                        className="p-4 rounded-2xl bg-game-red text-white hover:shadow-[0_0_15px_rgba(230,57,70,0.5)] transition-all"
                         whileHover={{ scale: 1.1, rotate: -5 }}
                         whileTap={{ scale: 0.95 }}
                         aria-label="GitHub"
@@ -133,8 +126,7 @@ export function ProjectsSection() {
                         href={project.links.live}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-4 rounded-2xl bg-game-blue text-white
-                                   hover:shadow-[0_0_15px_rgba(69,123,157,0.5)] transition-all"
+                        className="p-4 rounded-2xl bg-game-blue text-white hover:shadow-[0_0_15px_rgba(69,123,157,0.5)] transition-all"
                         whileHover={{ scale: 1.1, rotate: 5 }}
                         whileTap={{ scale: 0.95 }}
                         aria-label="Live demo"
